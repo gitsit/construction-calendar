@@ -1,38 +1,334 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.app-container {
   min-height: 100vh;
+  background: linear-gradient(to bottom right, #f8fafc, #e2e8f0);
+  padding: 2rem;
+}
+
+.content-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.card {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  padding: 3rem;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-title h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1e293b;
+}
+
+.icon-large {
+  width: 2rem;
+  height: 2rem;
+  color: #2563eb;
+}
+
+.icon-small {
+  width: 1rem;
+  height: 1rem;
+}
+
+.print-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.print-button:hover {
+  background: #1d4ed8;
+}
+
+/* Date Selector */
+.date-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #475569;
+  margin-bottom: 0.5rem;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Statistics */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 2px solid;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.stat-working {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #047857;
+}
+
+.stat-rdo {
+  background: #fffbeb;
+  border-color: #fde68a;
+  color: #b45309;
+}
+
+.stat-holiday {
+  background: #fff1f2;
+  border-color: #fecdd3;
+  color: #be123c;
+}
+
+.stat-closure {
+  background: #faf5ff;
+  border-color: #e9d5ff;
+  color: #7e22ce;
+}
+
+.stat-weekend {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  color: #475569;
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  font-size: 0.875rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-color {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.25rem;
+}
+
+.legend-working { background: #10b981; }
+.legend-rdo { background: #f59e0b; }
+.legend-holiday { background: #f43f5e; }
+.legend-closure { background: #a855f7; }
+.legend-weekend { background: #e2e8f0; }
+
+/* Calendar */
+.calendar-months {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.month-container {
+  break-inside: avoid;
+}
+
+.month-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1e293b;
+  margin-bottom: 1rem;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+}
+
+.day-header {
+  text-align: center;
+  font-weight: 600;
+  color: #475569;
+  padding: 0.75rem 0;
+  font-size: 0.875rem;
+}
+
+.day-cell {
+  aspect-ratio: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.day-cell.empty {
+  background: transparent;
+}
+
+.day-number {
+  font-weight: 500;
+}
+
+.day-label {
+  font-size: 0.75rem;
+  opacity: 0.75;
+  text-align: center;
+  padding: 0 0.25rem;
+  line-height: 1.2;
+}
+
+.day-working {
+  background: #10b981;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.day-rdo {
+  background: #f59e0b;
+  color: white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.day-holiday {
+  background: #f43f5e;
+  color: white;
+}
+
+.day-closure {
+  background: #a855f7;
+  color: white;
+}
+
+.day-weekend {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.day-out-of-range {
+  opacity: 0.3;
+}
+
+/* Print Styles */
+@media print {
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
   }
-  to {
-    transform: rotate(360deg);
+
+  .app-container {
+    background: white;
+    padding: 0;
+  }
+
+  .card {
+    box-shadow: none;
+    padding: 1rem;
+  }
+
+  .print-button {
+    display: none;
+  }
+
+  @page {
+    margin: 1cm;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 1rem;
+  }
+
+  .card {
+    padding: 1.5rem;
+  }
+
+  .header-title h1 {
+    font-size: 1.5rem;
+  }
+
+  .calendar-grid {
+    gap: 0.25rem;
+  }
+
+  .day-cell {
+    font-size: 0.75rem;
+  }
+
+  .day-label {
+    font-size: 0.625rem;
   }
 }
