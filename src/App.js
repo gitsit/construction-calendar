@@ -87,10 +87,10 @@ function App() {
   const christmasClosures = new Set([
     // 2025-2026 Christmas closure (example: Dec 23 - Jan 5)
     '2025-12-23', '2025-12-24', '2025-12-29', '2025-12-30', '2025-12-31',
-    '2026-01-02', '2026-01-05',
+    '2026-01-02', '2026-01-05', '2026-01-06', '2026-01-07', '2026-01-08', '2026-01-09', '2026-01-10', '2026-01-08', '2026-01-09',
     // 2026-2027 Christmas closure
     '2026-12-23', '2026-12-24', '2026-12-29', '2026-12-30', '2026-12-31',
-    '2027-01-04', '2027-01-05',
+    '2027-01-04', '2027-01-05', '2027-01-06', '2027-01-07', '2027-01-08',
   ]);
 
   const formatDate = (date) => {
@@ -201,7 +201,7 @@ function App() {
           <div className="header">
             <div className="header-title">
               <Calendar className="icon-large" />
-              <h1>Construction Work Calendar</h1>
+              <h1>Working Day Calculator</h1>
             </div>
             <button onClick={handlePrint} className="print-button">
               <Printer className="icon-small" />
