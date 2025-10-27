@@ -329,6 +329,6 @@ body {
   }
 
   .day-label {
-    font-size: 0.625rem;
+    display: none;
   }
 }
