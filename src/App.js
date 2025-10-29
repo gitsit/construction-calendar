@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { Calendar, Printer } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Calendar, Printer, Moon, Sun } from 'lucide-react';
 import './App.css';
 
 function App() {
   const [startDate, setStartDate] = useState('2026-01-01');
   const [endDate, setEndDate] = useState('2026-12-31');
+  const [darkMode, setDarkMode] = useState(false);
 
   // Victorian Public Holidays 2026-2027
   const publicHolidays = {
@@ -40,11 +41,10 @@ function App() {
   // Format: 'YYYY-MM-DD'
   const rdoDays = new Set([
     // 2026 RDOs - Example: one per month, sometimes two
-    '2026-01-27',
-    '2026-02-09',
-    '2026-02-23',
-    '2026-03-10',
-    '2026-03-23',
+    '2026-01-16',
+    '2026-02-13',
+    '2026-02-27',
+    '2026-03-20',
     '2026-04-17',
     '2026-05-15',
     '2026-05-29',
@@ -88,10 +88,25 @@ function App() {
   const christmasClosures = new Set([
     // 2025-2026 Christmas closure (example: Dec 23 - Jan 5)
     '2025-12-23', '2025-12-24', '2025-12-29', '2025-12-30', '2025-12-31',
-    '2026-01-02', '2026-01-05', '2026-01-06', '2026-01-07', '2026-01-08', '2026-01-09', '2026-01-10', '2026-01-08', '2026-01-09',
+    '2026-01-02', '2026-01-05',
     // 2026-2027 Christmas closure
     '2026-12-23', '2026-12-24', '2026-12-29', '2026-12-30', '2026-12-31',
-    '2027-01-04', '2027-01-05', '2027-01-06', '2027-01-07', '2027-01-08',
+    '2027-01-04', '2027-01-05',
+  ]);
+
+  // Embargo Days - Edit these dates as needed
+  // Format: 'YYYY-MM-DD'
+  const embargoDays = new Set([
+    // 2026 Embargos - Example: 4-5 embargo periods per year
+    '2026-02-16', '2026-02-17', '2026-02-18', '2026-02-19', '2026-02-20',
+    '2026-05-04', '2026-05-05', '2026-05-06', '2026-05-07', '2026-05-08',
+    '2026-07-27', '2026-07-28', '2026-07-29', '2026-07-30', '2026-07-31',
+    '2026-10-05', '2026-10-06', '2026-10-07', '2026-10-08', '2026-10-09',
+    // 2027 Embargos
+    '2027-02-15', '2027-02-16', '2027-02-17', '2027-02-18', '2027-02-19',
+    '2027-05-03', '2027-05-04', '2027-05-05', '2027-05-06', '2027-05-07',
+    '2027-07-26', '2027-07-27', '2027-07-28', '2027-07-29', '2027-07-30',
+    '2027-10-04', '2027-10-05', '2027-10-06', '2027-10-07', '2027-10-08',
   ]);
 
   const formatDate = (date) => {
@@ -110,6 +125,7 @@ function App() {
   const getDayType = (dateStr) => {
     if (publicHolidays[dateStr]) return 'holiday';
     if (christmasClosures.has(dateStr)) return 'closure';
+    if (embargoDays.has(dateStr)) return 'embargo';
     if (rdoDays.has(dateStr)) return 'rdo';
     if (isWeekend(dateStr)) return 'weekend';
     return 'working';
@@ -159,6 +175,7 @@ function App() {
     let holidayCount = 0;
     let weekendCount = 0;
     let closureCount = 0;
+    let embargoCount = 0;
     
     let current = new Date(start);
     while (current <= end) {
@@ -169,12 +186,13 @@ function App() {
       else if (type === 'rdo') rdoCount++;
       else if (type === 'holiday') holidayCount++;
       else if (type === 'closure') closureCount++;
+      else if (type === 'embargo') embargoCount++;
       else if (type === 'weekend') weekendCount++;
       
       current.setDate(current.getDate() + 1);
     }
     
-    return { workingDays, rdoCount, holidayCount, weekendCount, closureCount };
+    return { workingDays, rdoCount, holidayCount, weekendCount, closureCount, embargoCount };
   };
 
   const isInRange = (date) => {
@@ -191,6 +209,18 @@ function App() {
     }
   };
 
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+  }, [darkMode]);
+
   const stats = calculateStats();
   const months = getMonthsInRange();
 
@@ -204,10 +234,15 @@ function App() {
               <Calendar className="icon-large" />
               <h1>Working Day Calculator</h1>
             </div>
-            <button onClick={handlePrint} className="print-button">
-              <Printer className="icon-small" />
-              Print / Save PDF
-            </button>
+            <div className="header-buttons">
+              <button onClick={toggleDarkMode} className="dark-mode-button">
+                {darkMode ? <Sun className="icon-small" /> : <Moon className="icon-small" />}
+              </button>
+              <button onClick={handlePrint} className="print-button">
+                <Printer className="icon-small" />
+                Print / Save PDF
+              </button>
+            </div>
           </div>
 
           {/* Date Range Selector */}
@@ -248,6 +283,10 @@ function App() {
               <div className="stat-number">{stats.closureCount}</div>
               <div className="stat-label">Xmas Closure</div>
             </div>
+            <div className="stat-card stat-embargo">
+              <div className="stat-number">{stats.embargoCount}</div>
+              <div className="stat-label">Embargos</div>
+            </div>
             <div className="stat-card stat-weekend">
               <div className="stat-number">{stats.weekendCount}</div>
               <div className="stat-label">Weekends</div>
@@ -271,6 +310,10 @@ function App() {
             <div className="legend-item">
               <div className="legend-color legend-closure"></div>
               <span>Xmas Closure</span>
+            </div>
+            <div className="legend-item">
+              <div className="legend-color legend-embargo"></div>
+              <span>Embargo</span>
             </div>
             <div className="legend-item">
               <div className="legend-color legend-weekend"></div>
@@ -319,7 +362,7 @@ function App() {
                         <div
                           key={dayIdx}
                           className={cellClass}
-                          title={holiday || (dayType === 'closure' ? 'Christmas Closure' : '')}
+                          title={holiday || (dayType === 'closure' ? 'Christmas Closure' : dayType === 'embargo' ? 'Embargo Period' : '')}
                         >
                           <span className="day-number">{date.getDate()}</span>
                           {holiday && (

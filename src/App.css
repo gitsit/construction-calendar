@@ -10,12 +10,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease;
 }
 
 .app-container {
   min-height: 100vh;
   background: linear-gradient(to bottom right, #f8fafc, #e2e8f0);
   padding: 2rem;
+  transition: background 0.3s ease;
 }
 
 .content-wrapper {
@@ -28,6 +30,47 @@ body {
   border-radius: 1rem;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   padding: 3rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  background: #0f172a;
+}
+
+body.dark-mode .app-container {
+  background: linear-gradient(to bottom right, #0f172a, #1e293b);
+}
+
+body.dark-mode .card {
+  background: #1e293b;
+  color: #f1f5f9;
+}
+
+body.dark-mode .header-title h1 {
+  color: #f1f5f9;
+}
+
+body.dark-mode .month-title {
+  color: #f1f5f9;
+}
+
+body.dark-mode .input-group label {
+  color: #cbd5e1;
+}
+
+body.dark-mode .input-group input {
+  background: #334155;
+  border-color: #475569;
+  color: #f1f5f9;
+}
+
+body.dark-mode .day-header {
+  color: #cbd5e1;
+}
+
+body.dark-mode .legend-item span {
+  color: #cbd5e1;
 }
 
 /* Header */
@@ -52,6 +95,11 @@ body {
   color: #1e293b;
 }
 
+.header-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
 .icon-large {
   width: 2rem;
   height: 2rem;
@@ -61,6 +109,32 @@ body {
 .icon-small {
   width: 1rem;
   height: 1rem;
+}
+
+.dark-mode-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  background: #f1f5f9;
+  color: #475569;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dark-mode-button:hover {
+  background: #e2e8f0;
+}
+
+body.dark-mode .dark-mode-button {
+  background: #334155;
+  color: #fbbf24;
+}
+
+body.dark-mode .dark-mode-button:hover {
+  background: #475569;
 }
 
 .print-button {
@@ -159,10 +233,53 @@ body {
   color: #7e22ce;
 }
 
+.stat-embargo {
+  background: #fefce8;
+  border-color: #fef08a;
+  color: #a16207;
+}
+
 .stat-weekend {
   background: #f8fafc;
   border-color: #e2e8f0;
   color: #475569;
+}
+
+/* Dark mode stat cards */
+body.dark-mode .stat-working {
+  background: #064e3b;
+  border-color: #065f46;
+  color: #6ee7b7;
+}
+
+body.dark-mode .stat-rdo {
+  background: #78350f;
+  border-color: #92400e;
+  color: #fcd34d;
+}
+
+body.dark-mode .stat-holiday {
+  background: #881337;
+  border-color: #9f1239;
+  color: #fda4af;
+}
+
+body.dark-mode .stat-closure {
+  background: #581c87;
+  border-color: #6b21a8;
+  color: #e9d5ff;
+}
+
+body.dark-mode .stat-embargo {
+  background: #713f12;
+  border-color: #854d0e;
+  color: #fde047;
+}
+
+body.dark-mode .stat-weekend {
+  background: #334155;
+  border-color: #475569;
+  color: #cbd5e1;
 }
 
 /* Legend */
@@ -190,7 +307,10 @@ body {
 .legend-rdo { background: #f59e0b; }
 .legend-holiday { background: #f43f5e; }
 .legend-closure { background: #a855f7; }
+.legend-embargo { background: #eab308; }
 .legend-weekend { background: #e2e8f0; }
+
+body.dark-mode .legend-weekend { background: #475569; }
 
 /* Calendar */
 .calendar-months {
@@ -271,9 +391,19 @@ body {
   color: white;
 }
 
+.day-embargo {
+  background: #eab308;
+  color: white;
+}
+
 .day-weekend {
   background: #e2e8f0;
   color: #475569;
+}
+
+body.dark-mode .day-weekend {
+  background: #475569;
+  color: #cbd5e1;
 }
 
 .day-out-of-range {
@@ -287,6 +417,24 @@ body {
     -webkit-print-color-adjust: exact;
   }
 
+  body.dark-mode {
+    background: white;
+  }
+
+  body.dark-mode .app-container {
+    background: white;
+  }
+
+  body.dark-mode .card {
+    background: white;
+    color: #1e293b;
+  }
+
+  body.dark-mode .header-title h1,
+  body.dark-mode .month-title {
+    color: #1e293b;
+  }
+
   .app-container {
     background: white;
     padding: 0;
@@ -297,7 +445,8 @@ body {
     padding: 1rem;
   }
 
-  .print-button {
+  .print-button,
+  .dark-mode-button {
     display: none;
   }
 
