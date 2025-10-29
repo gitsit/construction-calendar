@@ -234,9 +234,9 @@ body.dark-mode .dark-mode-button:hover {
 }
 
 .stat-embargo {
-  background: #fefce8;
-  border-color: #fef08a;
-  color: #a16207;
+  background: #dbeafe;
+  border-color: #bfdbfe;
+  color: #1e40af;
 }
 
 .stat-weekend {
@@ -271,9 +271,9 @@ body.dark-mode .stat-closure {
 }
 
 body.dark-mode .stat-embargo {
-  background: #713f12;
-  border-color: #854d0e;
-  color: #fde047;
+  background: #1e3a8a;
+  border-color: #1e40af;
+  color: #93c5fd;
 }
 
 body.dark-mode .stat-weekend {
@@ -307,7 +307,7 @@ body.dark-mode .stat-weekend {
 .legend-rdo { background: #f59e0b; }
 .legend-holiday { background: #f43f5e; }
 .legend-closure { background: #a855f7; }
-.legend-embargo { background: #eab308; }
+.legend-embargo { background: #3b82f6; }
 .legend-weekend { background: #e2e8f0; }
 
 body.dark-mode .legend-weekend { background: #475569; }
@@ -392,7 +392,7 @@ body.dark-mode .legend-weekend { background: #475569; }
 }
 
 .day-embargo {
-  background: #eab308;
+  background: #3b82f6;
   color: white;
 }
 
